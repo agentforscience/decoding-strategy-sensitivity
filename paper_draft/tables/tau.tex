@@ -1,0 +1,18 @@
+\begin{table}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccc@{}}
+        \toprule
+        & \multicolumn{5}{c}{\textbf{\ktau vs.\ greedy ranking [95\% item-bootstrap CI]}} & \\
+        \cmidrule(lr){2-6}
+        \textbf{Domain} & \tsev & \tone & \topp & \topk & \minp & \textbf{Mean pairwise $\tau$} \\
+        \midrule
+        Factual & 0.93 {\scriptsize [0.89, 1.00]} & 0.93 {\scriptsize [0.88, 1.00]} & 0.93 {\scriptsize [0.89, 1.00]} & 0.93 {\scriptsize [0.89, 1.00]} & 0.93 {\scriptsize [0.89, 1.00]} & \textbf{0.98} \\
+        Reasoning & 0.89 {\scriptsize [0.71, 0.96]} & 0.85 {\scriptsize [0.71, 0.95]} & 0.85 {\scriptsize [0.70, 0.95]} & 0.85 {\scriptsize [0.71, 0.96]} & 0.85 {\scriptsize [0.70, 0.93]} & 0.91 \\
+        Code & 1.00 {\scriptsize [0.80, 1.00]} & 0.93 {\scriptsize [0.76, 0.96]} & 1.00 {\scriptsize [0.80, 1.00]} & 0.93 {\scriptsize [0.77, 0.99]} & 1.00 {\scriptsize [0.80, 1.00]} & 0.96 \\
+        Creative & 0.96 {\scriptsize [0.93, 1.00]} & 0.71 {\scriptsize [0.64, 0.81]} & 0.96 {\scriptsize [0.92, 1.00]} & 0.96 {\scriptsize [0.89, 1.00]} & 0.96 {\scriptsize [0.93, 1.00]} & 0.88 \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Ranking stability of the 11 models. The last column averages $\tau$ over all 15 pairs of strategies. The most stable domain overall is in \textbf{bold}. Every verifiable domain has $\tau\geq0.85$. The only value near 0.7 is creative writing at \tone, where small models degenerate.}
+    \label{tab:tau}
+\end{table}

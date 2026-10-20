@@ -1,0 +1,33 @@
+\section{Additional Details}
+\label{app:details}
+
+\para{Prompts.} The user messages, wrapped in each model's chat template, are:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item \emph{Factual:} ``Answer the following trivia question. Reply with only the answer (a few words), no explanation. Question: \{q\} Answer:''
+    \item \emph{Reasoning:} ``Solve the following math word problem. Think step by step, then write the final answer on the last line in the form `The answer is N'. \{q\}''
+    \item \emph{Code:} ``Complete the following Python function. Return the complete function (signature and body, plus any imports it needs) in a single python code block. \{prompt\}''
+    \item \emph{Creative:} ``Write a short, original story of about 150 words that begins with the sentence below. Make it vivid, surprising and engaging. Output only the story. First sentence: \{s\}''
+\end{itemize}
+
+\para{Per-model ranges of the change relative to greedy.} The table below reports the minimum and maximum $\Delta$ across the 11 models (in points).
+
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        \textbf{Domain} & \tsev & \tone & \topp & \topk & \minp \\
+        \midrule
+        Factual & [$-$4.0, $+$0.3] & [$-$8.1, $-$0.5] & [$-$7.1, $-$0.2] & [$-$6.8, $-$0.6] & [$-$3.0, 0.0] \\
+        Reasoning & [$-$6.0, $+$0.8] & [$-$14.3, $-$0.5] & [$-$8.2, $+$0.5] & [$-$13.8, $-$0.1] & [$-$8.1, $+$0.7] \\
+        Code & [$-$7.9, $+$1.2] & [$-$15.0, $+$0.6] & [$-$7.9, $+$1.2] & [$-$15.2, $+$0.2] & [$-$6.5, $+$0.8] \\
+        Creative & [$-$0.09, $+$0.18] & [$-$2.15, $-$0.06] & [$-$0.24, $+$0.23] & [$-$0.18, $+$0.19] & [$-$0.07, $+$0.21] \\
+        \bottomrule
+    \end{tabular}
+    \caption{Range of per-model changes relative to greedy. Under \tone, every model loses accuracy on factual QA and reasoning.}
+    \label{tab:ranges}
+\end{table}
+
+\para{Models.} Checkpoints: \url{Qwen/Qwen2.5-0.5B-Instruct}, \url{Qwen/Qwen2.5-1.5B-Instruct}, \url{Qwen/Qwen2.5-3B-Instruct}, \url{Qwen/Qwen2.5-7B-Instruct-AWQ}, \url{Qwen/Qwen3-4B-Instruct-2507}, \url{hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4}, \url{hugging-quants/gemma-2-9b-it-AWQ-INT4}, \url{solidrust/Mistral-7B-Instruct-v0.3-AWQ}, \url{tiiuae/Falcon3-7B-Instruct-AWQ}, \url{kaitchup/Phi-3-mini-4k-instruct-gptq-4bit}, \url{kaitchup/Olmo-3-7B-Instruct-gptq-w4a16-g128}. The judge is \url{Qwen3-8B-AWQ}. We served all models with \vllm~0.32.
+
+\para{Deviations from the plan.} We had planned to use a 14B judge, but it did not fit on the shared GPUs, so we used Qwen3-8B-AWQ instead. Because of GPU contention, we adapted the memory budget for each model. Per-request seeds keep outputs independent of these choices. We added the matched-$n$ seed-variance check after seeing the difference in benchmark sizes.

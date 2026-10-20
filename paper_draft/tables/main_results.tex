@@ -1,0 +1,16 @@
+\begin{table}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccc@{}}
+        \toprule
+        \textbf{Domain (unit)} & \greedy & \tsev & \tone & \topp & \topk & \minp \\
+        \midrule
+        Factual (acc.\ \%) & \textbf{51.8} & 50.2 {\scriptsize ($-$1.6\sig)} & 47.4 {\scriptsize ($-$4.3\sig)} & 49.0 {\scriptsize ($-$2.8\sig)} & 48.0 {\scriptsize ($-$3.8\sig)} & 50.2 {\scriptsize ($-$1.6\sig)} \\
+        Reasoning (acc.\ \%) & \textbf{79.3} & 77.2 {\scriptsize ($-$2.0\pstar)} & 73.3 {\scriptsize ($-$5.9\sig)} & 76.3 {\scriptsize ($-$2.9\sig)} & 73.5 {\scriptsize ($-$5.7\sig)} & 76.7 {\scriptsize ($-$2.5\pstar)} \\
+        Code (pass@1 \%) & \textbf{63.5} & 61.2 {\scriptsize ($-$2.3\pstar)} & 56.9 {\scriptsize ($-$6.7\sig)} & 60.6 {\scriptsize ($-$3.0\pstar)} & 56.6 {\scriptsize ($-$6.9\sig)} & 61.0 {\scriptsize ($-$2.5\pstar)} \\
+        Creative (judge, 1--10) & 8.30 & 8.33 {\scriptsize ($+$0.03\pstar)} & 7.71 {\scriptsize ($-$0.59\sig)} & 8.30 {\scriptsize ($+$0.00\pstar)} & 8.30 {\scriptsize ($+$0.00\pstar)} & \textbf{8.35} {\scriptsize ($+$0.05\pstar)} \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Mean score over 11 models for each domain and strategy. The change relative to greedy is in parentheses. \sig: Wilcoxon signed-rank test over the 11 models, Holm-adjusted $p<0.05$ across all 20 tests. The best strategy in each row is in \textbf{bold}. Greedy is best in every verifiable domain. \tone and \topk lose the most, and \tsev, \topp, and \minp lose about half as much.}
+    \label{tab:main}
+\end{table}

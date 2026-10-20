@@ -1,0 +1,53 @@
+12:53:04 launch qwen2.5-0.5b on gpu2 (free 47.4GB)
+12:54:29 fail qwen2.5-0.5b rc=1 try=1
+12:54:30 launch qwen2.5-1.5b on gpu2 (free 30.9GB)
+--- restart scheduler
+13:03:49 launch qwen2.5-0.5b on gpu0 (free 5.0GB)
+13:06:04 launch phi3-mini-gptq on gpu2 (free 10.5GB)
+13:07:29 fail phi3-mini-gptq rc=1 try=1
+13:07:29 launch qwen2.5-3b on gpu2 (free 19.4GB)
+13:08:54 done qwen2.5-0.5b
+13:08:55 launch phi3-mini-gptq on gpu2 (free 8.7GB)
+13:10:20 fail phi3-mini-gptq rc=1 try=2
+13:27:58 launch mistral-7b-awq on gpu2 (free 10.9GB)
+13:29:23 done qwen2.5-3b
+13:29:23 launch phi3-mini-gptq on gpu2 (free 8.7GB)
+13:30:48 fail mistral-7b-awq rc=1 try=1
+13:46:06 launch qwen2.5-7b-awq on gpu2 (free 13.6GB)
+13:47:31 fail qwen2.5-7b-awq rc=1 try=1
+13:50:12 launch llama3.1-8b-awq on gpu2 (free 13.6GB)
+13:51:37 fail llama3.1-8b-awq rc=1 try=1
+14:04:03 launch falcon3-7b-awq on gpu2 (free 13.6GB)
+14:05:28 fail falcon3-7b-awq rc=1 try=1
+14:10:21 fail phi3-mini-gptq rc=-15 try=3
+--- restart scheduler (new budgets)
+14:16:05 launch qwen2.5-7b-awq on gpu2 (free 13.6GB)
+14:17:30 fail qwen2.5-7b-awq rc=1 try=1
+14:27:25 launch qwen3-4b-2507 on gpu2 (free 14.9GB)
+14:28:50 fail qwen3-4b-2507 rc=1 try=1
+14:29:20 launch mistral-7b-awq on gpu2 (free 11.0GB)
+--- restart scheduler (adaptive budgets)
+14:29:29 launch qwen2.5-7b-awq on gpu2 (free 11.0GB)
+14:30:54 fail qwen2.5-7b-awq rc=1 try=1
+14:36:37 launch qwen3-4b-2507 on gpu2 (free 36.4GB)
+14:39:02 fail qwen3-4b-2507 rc=1 try=1
+14:39:02 launch llama3.1-8b-awq on gpu2 (free 13.9GB)
+14:40:27 fail llama3.1-8b-awq rc=1 try=1
+14:50:43 launch gemma2-9b-awq on gpu2 (free 26.5GB)
+14:52:08 launch falcon3-7b-awq on gpu2 (free 11.5GB)
+14:53:33 fail falcon3-7b-awq rc=1 try=1
+14:54:54 launch phi3-mini-gptq on gpu2 (free 16.1GB)
+14:56:19 fail phi3-mini-gptq rc=1 try=1
+15:02:32 launch olmo3-7b-gptq on gpu2 (free 13.1GB)
+15:14:32 launch qwen2.5-7b-awq on gpu2 (free 10.0GB)
+15:21:10 launch qwen3-4b-2507 on gpu2 (free 11.8GB)
+15:22:35 fail qwen3-4b-2507 rc=1 try=2
+15:40:03 launch llama3.1-8b-awq on gpu2 (free 11.8GB)
+16:12:15 done qwen2.5-7b-awq
+16:12:15 launch falcon3-7b-awq on gpu2 (free 10.5GB)
+--- restart scheduler (phi3 manual on gpu3)
+16:12:23 launch phi3-mini-gptq on gpu2 (free 10.5GB)
+--- restart scheduler (robust busy check)
+16:21:55 launch qwen3-4b-2507 on gpu2 (free 14.2GB)
+17:21:30 done qwen3-4b-2507
+17:21:40 ALL FINISHED

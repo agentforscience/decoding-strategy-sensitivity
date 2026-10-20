@@ -1,0 +1,21 @@
+\begin{table}[t]
+    \centering
+    \small
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        \textbf{Domain} & \textbf{Items} & \textbf{Seed SD (pts)} & \textbf{Seed range (pts)} & \textbf{Item flip rate} & \textbf{SD / binomial SE} \\
+        \midrule
+        Code & 164 & \textbf{2.13} & \textbf{4.08} & \textbf{26.7\%} & \textbf{0.61} \\
+        Reasoning & 400 & 1.16 & 2.21 & 24.2\% & 0.58 \\
+        Factual & 398 & 1.14 & 2.18 & 14.4\% & 0.49 \\
+        Creative (judge pts) & 100 & 0.05 & 0.09 & -- & -- \\
+        \midrule
+        \multicolumn{6}{@{}l}{\emph{Matched $n=164$ items (200 subsamples)}} \\
+        Code & 164 & \textbf{2.13} & & & \\
+        Reasoning & 164 & 1.85 {\scriptsize [1.61, 2.20]} & & & \\
+        Factual & 164 & 1.59 {\scriptsize [1.30, 2.05]} & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Seed variability under sampling, averaged over 11 models $\times$ 5 sampled strategies. The flip rate is the share of items whose outcome differs across the 3 seeds. Code is the most seed-sensitive domain on every measure (paired Wilcoxon over 55 cells, $p<10^{-5}$; flip rate of code vs.\ reasoning, $p=0.02$). With matched $n$, code's lead over reasoning shrinks to 0.28 points.}
+    \label{tab:seed}
+\end{table}

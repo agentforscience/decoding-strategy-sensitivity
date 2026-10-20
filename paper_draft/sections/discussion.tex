@@ -1,0 +1,25 @@
+\section{Discussion}
+\label{sec:discussion}
+
+{\bf Does the sampler matter more than the domain?} The same order of strategies appears in all three verifiable domains, and the gap between samplers within a domain (for example, 1.6 vs.\ 4.3 points on factual QA) is as large as the gap between domains. The choice of truncation rule is therefore at least as important as the task family in predicting the cost of sampling. Adaptive rules (top-$p$, min-$p$) are much safer than a fixed top-$k$. In our grid, min-$p$ 0.1 was the best sampler overall: it stayed closest to greedy on every verifiable task and had the highest creative score.
+
+{\bf Why are strong models insensitive?} On \gsm, the models above 87\% greedy accuracy lose less than 1 point at \tone, and the smallest models lose 12--14 points. A plausible explanation is that stronger models have sharper next-token distributions along their reasoning traces, so even untruncated sampling rarely leaves the high-probability path. This suggests that decoding sensitivity is partly a property of model quality, and that frontier models may be less sensitive than the models we tested. Falcon3-7B is a counterexample: it is accurate under greedy decoding but fragile under sampling.
+
+{\bf What drives ranking instability?} Ranking changes followed the spacing between models, not the domain. Reasoning rankings moved because the top five models are within 3.75 points of each other. Creative rankings moved at \tone because only some small models degenerated. Reporting $\tau$ alone can hide large per-model shifts: models moved by up to 15 points while rankings stayed largely intact. Evaluators should report both.
+
+\para{Practical recommendations.}
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item Always report the decoding strategy and its parameters. Compare models only under the same decoder.
+    \item Evaluate verifiable tasks with greedy decoding. If diversity is needed, use \minp, \topp, or $T\leq0.7$, never untruncated \tone or \topk.
+    \item When sampling, average over at least three seeds, especially on small code benchmarks, where single-seed pass@1 can differ by about 4 points.
+\end{itemize}
+
+\para{Limitations.}
+\emph{Scale and quantization.} All models have at most 9B parameters, and 7 of 11 are 4-bit quantized. We could not test frontier API models because no API keys were available, and their sensitivity is likely smaller.
+\emph{Judge proxy.} Creative quality is scored by a single 8B LLM judge, not by humans. LLM judges favor fluent, coherent text~\citep{zheng2023judging} and may under-reward novelty. The judge (Qwen3) also belongs to the same family as five of the evaluated Qwen models. H3 is therefore tested only by proxy.
+\emph{Sample size.} We use 400/398/164/100 items, 3 seeds, and 11 models. With 11 models, $\tau$ moves in steps of 0.036, and reasoning CIs span about $\pm0.13$.
+\emph{Greedy is a single run.} Batched \vllm inference can make greedy decoding slightly non-deterministic. Our $\Delta$ tests average out seed noise for the sampled strategies but not run noise for greedy.
+\emph{Metrics and prompts.} Alias matching on the first line for \triviaqa and number extraction for \gsm are standard but imperfect. Two \triviaqa questions appear twice in our sample. Truncation at the token limit affects \tone slightly more than greedy (4.5\% vs.\ 1.6\% of creative outputs). We use one zero-shot prompt per task and do not study interactions with prompt wording.
+\emph{Literature.} Our survey of related work was not systematic.
+
+\para{Broader impact.} This work aims to make LLM evaluation more reproducible. We see no direct negative use. One risk is that the results are read as applying to all LLMs. They describe small and mid-sized open models, and the size of the effect should be checked again for larger systems.

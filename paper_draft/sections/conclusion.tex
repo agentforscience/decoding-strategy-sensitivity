@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We measured how decoding strategy affects the scores and rankings of 11 open instruction-tuned LLMs on factual QA, math reasoning, code synthesis, and creative writing, using six decoders and three seeds. For these models, decoding is not a negligible nuisance variable in any verifiable domain. Untruncated sampling costs 4--7 points on \triviaqa, \gsm, and \humaneval, and top-$p$ or min-$p$ halves that cost. No sampler beats greedy on average. Under an LLM-judge proxy, creative quality does not improve with sampling. Model rankings are reassuringly stable ($\tau\geq0.85$ vs.\ greedy in every verifiable domain). Reasoning is the least stable verifiable domain, but it is far from the hypothesized $\tau<0.7$. Code is the most seed-sensitive domain.
+
+{\bf Key takeaway:} rankings survive a change of decoder, but individual scores do not. Decoding settings should therefore always be reported and held fixed when comparing models.
+
+Several follow-ups would sharpen these conclusions. The first is to repeat the grid with frontier and unquantized models. The second is to replace the single LLM judge with human ratings or a panel of judges. The third is to add more models (at least 20) for tighter $\tau$ estimates. Larger code benchmarks such as MBPP+~\citep{liu2023evalplus} would help separate inherent code noise from small-$n$ effects, and temperature sweeps would show where each domain's loss begins.

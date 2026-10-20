@@ -1,0 +1,14 @@
+\section{Related Work}
+\label{sec:related}
+
+\para{Truncated sampling for open-ended generation.}
+\citet{holtzman2020curious} showed that greedy and beam search produce bland, repetitive text, while pure ancestral sampling falls into the unreliable tail of the distribution. They proposed nucleus (top-$p$) sampling as a compromise. Top-$k$ sampling~\citep{fan2018hierarchical} truncates to a fixed number of candidates. Min-$p$ sampling~\citep{nguyen2024minp} keeps tokens whose probability is at least a fraction of the top token's probability, so the cut-off adapts to model confidence. These methods were motivated mainly by open-ended text quality. We evaluate all of them on verifiable tasks as well, and we find that the adaptive samplers (top-$p$, min-$p$) are also the least harmful there.
+
+\para{Decoding for reasoning and code.}
+For code, \citet{chen2021codex} showed that low temperatures maximize pass@1 and higher temperatures help pass@$k$ for large $k$. For multi-step reasoning, sampling is used deliberately in self-consistency~\citep{wang2023selfconsistency}, which aggregates many sampled chains. \citet{renze2024temperature} reported that temperature in the range 0--1 has little effect on multiple-choice problem solving. Unlike these single-domain studies, we compare domains under the same models and samplers. This lets us show that free-form factual QA is about as sensitive in relative terms as math reasoning.
+
+\para{Broad examinations of decoding.}
+\citet{shi2024thorough} examine many decoding methods across tasks for modern LLMs and find that the best method depends on the task and the model. Our study is complementary: it uses more models (11 from 7 families), repeated seeds, and two analyses they do not report, namely \emph{ranking stability} measured by \ktau with item-bootstrap confidence intervals, and \emph{seed variance} by domain.
+
+\para{Evaluation robustness and LLM judges.}
+Benchmarks are known to be sensitive to evaluation choices such as prompt format. Decoding is one such choice, and it is often unreported. For open-ended outputs, LLM-as-a-judge~\citep{zheng2023judging} has become a common proxy for human ratings, with known biases toward fluent text. We use a held-out LLM judge for creative writing and report diversity metrics alongside it. Our creative-writing conclusions are therefore stated relative to this proxy.

@@ -1,0 +1,51 @@
+\section{Experimental Design}
+\label{sec:method}
+
+Our main question is: {\bf how much do task scores and model rankings change with the decoding strategy, and does this differ by task domain?} We fix models, prompts, and data, and vary only the decoder.
+
+\subsection{Hypotheses}
+\label{sec:hyp}
+We test five pre-registered claims:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item[\bf H1] On factual QA, every strategy stays within 2 points of greedy accuracy.
+    \item[\bf H2] On math reasoning, \tone is 5--12 points below greedy, and \topp recovers most ($>$50\%) of that gap.
+    \item[\bf H3] Sampling improves judged creative quality by 10--15\% (relative) over greedy.
+    \item[\bf H4] \ktau between the greedy ranking and each strategy's ranking is $>0.9$ on factual QA and $<0.7$ on reasoning.
+    \item[\bf H5] Seed variance under sampling is largest for code.
+\end{itemize}
+
+\subsection{Models}
+We evaluate 11 instruction-tuned open-weight models from 7 families, spanning 0.5B to 9B parameters: Qwen2.5-\{0.5B, 1.5B, 3B\}-Instruct (bf16), Qwen2.5-7B-Instruct (AWQ)~\citep{qwen2025qwen25}, Qwen3-4B-Instruct-2507 (bf16)~\citep{qwen2025qwen3}, Llama-3.1-8B-Instruct (AWQ-INT4)~\citep{dubey2024llama3}, Gemma-2-9B-it (AWQ-INT4)~\citep{gemma2024gemma2}, Mistral-7B-Instruct-v0.3 (AWQ)~\citep{jiang2023mistral}, Falcon3-7B-Instruct (AWQ), Phi-3-mini-4k-instruct (GPTQ 4-bit)~\citep{abdin2024phi3}, and Olmo-3-7B-Instruct (GPTQ w4a16). Seven of the 11 checkpoints are 4-bit quantized~\citep{lin2024awq,frantar2023gptq}. No API keys were available on our host, so we did not evaluate closed models. Open models also give us exact control over samplers (most closed APIs do not expose top-$k$ or min-$p$) and over per-request seeds.
+
+\subsection{Decoding strategies}
+\Tabref{tab:strategies} lists the six strategies. All sampled strategies except \tsev use $T{=}1.0$, so that differences among them come only from truncation. Each sampled strategy is run with seeds $s\in\{0,1,2\}$. The per-request seed is $100000\cdot s + i$ for item index $i$, which makes outputs independent of batch composition. Greedy decoding is run once. Each model--task pair therefore has $1 + 5\times 3 = 16$ runs.
+
+\input{tables/strategies}
+
+\subsection{Tasks, data, and metrics}
+\Tabref{tab:tasks} summarizes the four domains. All prompts are zero-shot, use each model's chat template, and are identical across models and strategies.
+
+\para{Factual QA.} We sample 400 questions (398 unique) from the \triviaqa~\citep{joshi2017triviaqa} \texttt{rc.nocontext} validation split. The model is asked to reply with only the answer. A response is correct if the normalized first line exactly matches, or contains, any gold alias.
+
+\para{Math reasoning.} We sample 400 \gsm~\citep{cobbe2021gsm8k} test problems. The prompt asks for step-by-step reasoning that ends with ``The answer is $N$''. We extract that number, falling back to the last number in the response, and compare it with the gold answer.
+
+\para{Code synthesis.} We use all 164 \humaneval~\citep{chen2021codex} problems. We extract the code block, concatenate it with the prompt and unit tests, and execute the result in an isolated subprocess with a 10-second timeout. The metric is pass@1 per sample.
+
+\para{Creative writing.} We take the first sentences of 100 \rocstories~\citep{mostafazadeh2016rocstories} test stories and ask for an original story of about 150 words that begins with that sentence. The judge is Qwen3-8B-AWQ, run with greedy decoding in non-thinking mode. It is not one of the evaluated models and does not see the model or strategy. It rates each story from 1 to 10 on creativity, coherence, fluency, and engagement, and we report the mean of the four scores. All 17{,}600 judgments parsed successfully. We also report distinct-2~\citep{li2016diversity}, length, and truncation rate.
+
+\input{tables/tasks}
+
+\subsection{Statistical analysis}
+\label{sec:stats}
+Let $a_{m,d,g,s}$ be the score of model $m$ on domain $d$ under strategy $g$ and seed $s$, averaged over items. The model-level score is $\bar a_{m,d,g} = \frac{1}{3}\sum_s a_{m,d,g,s}$. For greedy, this is the single run. We define the change relative to greedy as
+\begin{equation}
+\Delta_{m,d,g} = \bar a_{m,d,g} - \bar a_{m,d,\textsc{greedy}}.
+\end{equation}
+
+\para{Score changes.} We test whether $\Delta_{m,d,g}$ is zero across the 11 models with a Wilcoxon signed-rank test (we also run a $t$-test) and apply Holm correction over all 20 (domain, strategy) pairs.
+
+\para{Ranking stability.} For each domain and strategy, we compute Kendall's $\tau_b$ between the model ranking under greedy and the ranking under that strategy. We obtain 95\% confidence intervals from 1{,}000 item-bootstrap resamples, recomputing every model mean in each resample. With 11 models, one swapped pair changes $\tau$ by $2/55\approx0.036$.
+
+\para{Seed variability.} For each (model, strategy) cell, we compute the standard deviation (SD) of run-level scores over the three seeds. We also compute the \emph{item flip rate}, the share of items whose outcome differs across seeds. Domains are compared with paired Wilcoxon tests over the 55 model$\times$strategy cells. \humaneval has fewer items than the other benchmarks, so we add a matched-$n$ check that draws 200 subsamples of 164 items from \triviaqa and \gsm.
+
+\para{Compute.} We ran generation on 4$\times$ RTX A6000 GPUs shared with other jobs. Each model received a 5--15\,GB slice (max context 2{,}048, at most 128 concurrent sequences). We produced 132{,}064 generations (about 28.6M tokens) in about 4.5 hours, and judging took about 45 minutes.

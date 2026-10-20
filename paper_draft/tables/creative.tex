@@ -1,0 +1,20 @@
+\begin{table}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccc@{}}
+        \toprule
+        & \multicolumn{5}{c}{\textbf{LLM judge (1--10)}} & \multicolumn{3}{c}{\textbf{Surface statistics}} \\
+        \cmidrule(lr){2-6} \cmidrule(lr){7-9}
+        \textbf{Strategy} & Creativity & Coherence & Fluency & Engagement & Mean & Distinct-2 & Words & Truncated \\
+        \midrule
+        \greedy & 7.24 & \textbf{8.36} & \textbf{9.47} & 8.13 & 8.30 & 0.963 & 148 & \textbf{1.6\%} \\
+        \tsev & 7.39 & 8.31 & 9.44 & 8.20 & 8.33 & 0.973 & 151 & 1.8\% \\
+        \tone & 7.29 & 7.37 & 8.56 & 7.64 & 7.71 & \textbf{0.982} & 156 & 4.5\% \\
+        \topp & 7.47 & 8.20 & 9.34 & 8.20 & 8.30 & 0.977 & 154 & 2.8\% \\
+        \topk & \textbf{7.53} & 8.15 & 9.31 & \textbf{8.22} & 8.30 & 0.979 & 156 & 2.7\% \\
+        \minp & 7.39 & 8.35 & 9.46 & 8.21 & \textbf{8.35} & 0.973 & 153 & 2.0\% \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Creative writing, averaged over 11 models. Sampling raises creativity (+2 to +4\%) and lexical diversity but lowers coherence and fluency, so the overall judge score stays flat or drops. \textbf{Bold} marks the best value per column, counting lower truncation as better.}
+    \label{tab:creative}
+\end{table}

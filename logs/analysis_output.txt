@@ -1,0 +1,363 @@
+models: 11 ['falcon3-7b-awq', 'gemma2-9b-awq', 'llama3.1-8b-awq', 'mistral-7b-awq', 'olmo3-7b-gptq', 'phi3-mini-gptq', 'qwen2.5-0.5b', 'qwen2.5-1.5b', 'qwen2.5-3b', 'qwen2.5-7b-awq', 'qwen3-4b-2507']
+{
+ "factual": {
+  "n_items": 398,
+  "n_models": 11,
+  "mean_by_strategy": {
+   "greedy": 51.773,
+   "t0.7": 50.167,
+   "t1.0": 47.424,
+   "topp0.9": 48.962,
+   "topk40": 47.97,
+   "minp0.1": 50.174
+  },
+  "mean_delta_vs_greedy": {
+   "greedy": 0.0,
+   "t0.7": -1.606,
+   "t1.0": -4.348,
+   "topp0.9": -2.811,
+   "topk40": -3.803,
+   "minp0.1": -1.598
+  },
+  "mean_rel_delta_pct": {
+   "greedy": 0.0,
+   "t0.7": -4.33,
+   "t1.0": -10.99,
+   "topp0.9": -7.74,
+   "topk40": -9.44,
+   "minp0.1": -3.99
+  },
+  "max_abs_delta_any_model_any_strategy": 8.083333333333332,
+  "tau_vs_greedy": {
+   "t0.7": 0.927,
+   "t1.0": 0.927,
+   "topp0.9": 0.927,
+   "topk40": 0.927,
+   "minp0.1": 0.927
+  },
+  "mean_pairwise_tau_all_strategies": 0.9757575757575758,
+  "ranking_greedy": [
+   "gemma2-9b-awq",
+   "mistral-7b-awq",
+   "llama3.1-8b-awq",
+   "phi3-mini-gptq",
+   "qwen2.5-7b-awq",
+   "falcon3-7b-awq",
+   "qwen3-4b-2507",
+   "qwen2.5-3b",
+   "olmo3-7b-gptq",
+   "qwen2.5-1.5b",
+   "qwen2.5-0.5b"
+  ]
+ },
+ "reasoning": {
+  "n_items": 400,
+  "n_models": 11,
+  "mean_by_strategy": {
+   "greedy": 79.25,
+   "t0.7": 77.235,
+   "t1.0": 73.333,
+   "topp0.9": 76.303,
+   "topk40": 73.538,
+   "minp0.1": 76.72
+  },
+  "mean_delta_vs_greedy": {
+   "greedy": 0.0,
+   "t0.7": -2.015,
+   "t1.0": -5.917,
+   "topp0.9": -2.947,
+   "topk40": -5.712,
+   "minp0.1": -2.53
+  },
+  "mean_rel_delta_pct": {
+   "greedy": 0.0,
+   "t0.7": -2.89,
+   "t1.0": -8.56,
+   "topp0.9": -4.12,
+   "topk40": -8.29,
+   "minp0.1": -3.73
+  },
+  "max_abs_delta_any_model_any_strategy": 14.333333333333336,
+  "tau_vs_greedy": {
+   "t0.7": 0.891,
+   "t1.0": 0.855,
+   "topp0.9": 0.855,
+   "topk40": 0.855,
+   "minp0.1": 0.855
+  },
+  "mean_pairwise_tau_all_strategies": 0.9054545454545455,
+  "ranking_greedy": [
+   "qwen3-4b-2507",
+   "qwen2.5-7b-awq",
+   "olmo3-7b-gptq",
+   "gemma2-9b-awq",
+   "falcon3-7b-awq",
+   "llama3.1-8b-awq",
+   "qwen2.5-3b",
+   "phi3-mini-gptq",
+   "qwen2.5-1.5b",
+   "mistral-7b-awq",
+   "qwen2.5-0.5b"
+  ],
+  "greedy_minus_t1": {
+   "falcon3-7b-awq": 8.5,
+   "gemma2-9b-awq": 0.5,
+   "llama3.1-8b-awq": 10.75,
+   "mistral-7b-awq": 6.17,
+   "olmo3-7b-gptq": 2.92,
+   "phi3-mini-gptq": 4.92,
+   "qwen2.5-0.5b": 14.33,
+   "qwen2.5-1.5b": 11.67,
+   "qwen2.5-3b": 3.58,
+   "qwen2.5-7b-awq": 0.92,
+   "qwen3-4b-2507": 0.83
+  },
+  "topp_recovery_fraction_per_model": {
+   "falcon3-7b-awq": 0.039,
+   "gemma2-9b-awq": -0.333,
+   "llama3.1-8b-awq": 0.519,
+   "mistral-7b-awq": 0.743,
+   "olmo3-7b-gptq": 0.486,
+   "phi3-mini-gptq": 0.492,
+   "qwen2.5-0.5b": 0.506,
+   "qwen2.5-1.5b": 0.743,
+   "qwen2.5-3b": 0.186,
+   "qwen2.5-7b-awq": 1.545,
+   "qwen3-4b-2507": 0.6
+  },
+  "topp_recovery_fraction_pooled": 0.5019206145966704,
+  "minp_recovery_fraction_pooled": 0.5723431498079388
+ },
+ "code": {
+  "n_items": 164,
+  "n_models": 11,
+  "mean_by_strategy": {
+   "greedy": 63.525,
+   "t0.7": 61.179,
+   "t1.0": 56.874,
+   "topp0.9": 60.551,
+   "topk40": 56.633,
+   "minp0.1": 60.976
+  },
+  "mean_delta_vs_greedy": {
+   "greedy": 0.0,
+   "t0.7": -2.347,
+   "t1.0": -6.652,
+   "topp0.9": -2.975,
+   "topk40": -6.892,
+   "minp0.1": -2.55
+  },
+  "mean_rel_delta_pct": {
+   "greedy": 0.0,
+   "t0.7": -5.23,
+   "t1.0": -13.2,
+   "topp0.9": -5.69,
+   "topk40": -13.55,
+   "minp0.1": -5.11
+  },
+  "max_abs_delta_any_model_any_strategy": 15.243902439024396,
+  "tau_vs_greedy": {
+   "t0.7": 1.0,
+   "t1.0": 0.927,
+   "topp0.9": 1.0,
+   "topk40": 0.927,
+   "minp0.1": 1.0
+  },
+  "mean_pairwise_tau_all_strategies": 0.9612121212121213,
+  "ranking_greedy": [
+   "qwen3-4b-2507",
+   "qwen2.5-7b-awq",
+   "olmo3-7b-gptq",
+   "qwen2.5-3b",
+   "falcon3-7b-awq",
+   "gemma2-9b-awq",
+   "llama3.1-8b-awq",
+   "qwen2.5-1.5b",
+   "phi3-mini-gptq",
+   "qwen2.5-0.5b",
+   "mistral-7b-awq"
+  ]
+ },
+ "creative": {
+  "n_items": 100,
+  "n_models": 11,
+  "mean_by_strategy": {
+   "greedy": 8.3,
+   "t0.7": 8.333,
+   "t1.0": 7.714,
+   "topp0.9": 8.303,
+   "topk40": 8.3,
+   "minp0.1": 8.351
+  },
+  "mean_delta_vs_greedy": {
+   "greedy": 0.0,
+   "t0.7": 0.034,
+   "t1.0": -0.586,
+   "topp0.9": 0.004,
+   "topk40": 0.001,
+   "minp0.1": 0.051
+  },
+  "mean_rel_delta_pct": {
+   "greedy": 0.0,
+   "t0.7": 0.46,
+   "t1.0": -7.86,
+   "topp0.9": 0.03,
+   "topk40": 0.01,
+   "minp0.1": 0.73
+  },
+  "max_abs_delta_any_model_any_strategy": 2.151666666666667,
+  "tau_vs_greedy": {
+   "t0.7": 0.964,
+   "t1.0": 0.709,
+   "topp0.9": 0.964,
+   "topk40": 0.964,
+   "minp0.1": 0.964
+  },
+  "mean_pairwise_tau_all_strategies": 0.8836363636363634,
+  "ranking_greedy": [
+   "qwen3-4b-2507",
+   "olmo3-7b-gptq",
+   "gemma2-9b-awq",
+   "llama3.1-8b-awq",
+   "mistral-7b-awq",
+   "falcon3-7b-awq",
+   "qwen2.5-7b-awq",
+   "phi3-mini-gptq",
+   "qwen2.5-3b",
+   "qwen2.5-1.5b",
+   "qwen2.5-0.5b"
+  ]
+ },
+ "seed_variability_by_task": {
+  "seed_std": {
+   "code": 2.131,
+   "creative": 0.047,
+   "factual": 1.144,
+   "reasoning": 1.157
+  },
+  "seed_range": {
+   "code": 4.08,
+   "creative": 0.09,
+   "factual": 2.177,
+   "reasoning": 2.209
+  },
+  "seed_cv_pct": {
+   "code": 4.456,
+   "creative": 0.664,
+   "factual": 2.892,
+   "reasoning": 1.687
+  },
+  "item_flip": {
+   "code": 26.729,
+   "creative": 0.468,
+   "factual": 14.427,
+   "reasoning": 24.241
+  },
+  "binom_se": {
+   "code": 3.485,
+   "creative": NaN,
+   "factual": 2.343,
+   "reasoning": 1.978
+  },
+  "std_over_binomSE": {
+   "code": 0.607,
+   "creative": NaN,
+   "factual": 0.492,
+   "reasoning": 0.584
+  }
+ },
+ "h5_tests": {
+  "seed_std: code vs factual": {
+   "code_mean": 2.130994978640639,
+   "other_mean": 1.144289549401711,
+   "wilcoxon_p": 3.901155510948365e-06
+  },
+  "seed_std: code vs reasoning": {
+   "code_mean": 2.130994978640639,
+   "other_mean": 1.1572747032652921,
+   "wilcoxon_p": 6.818387598167257e-06
+  },
+  "item_flip: code vs factual": {
+   "code_mean": 26.72949002217295,
+   "other_mean": 14.426678848789397,
+   "wilcoxon_p": 2.4376855071366756e-09
+  },
+  "item_flip: code vs reasoning": {
+   "code_mean": 26.72949002217295,
+   "other_mean": 24.240909090909092,
+   "wilcoxon_p": 0.020520129983383126
+  }
+ 
+         task strategy  mean_delta  sd_delta  min_delta  max_delta  max_abs_delta  mean_rel_pct  median_rel_pct     t_p  wilcoxon_p  wilcoxon_p_holm
+0     factual     t0.7     -1.6061    1.1926    -4.0000     0.3333         4.0000       -4.3347         -2.8777  0.0012      0.0029           0.0352
+1     factual     t1.0     -4.3485    2.2232    -8.0833    -0.5000         8.0833      -10.9890         -7.8219  0.0001      0.0010           0.0195
+2     factual  topp0.9     -2.8106    1.9515    -7.0833    -0.1667         7.0833       -7.7365         -5.0542  0.0007      0.0010           0.0195
+3     factual   topk40     -3.8030    1.8691    -6.7500    -0.5833         6.7500       -9.4373         -6.8592  0.0001      0.0010           0.0195
+4     factual  minp0.1     -1.5985    0.9760    -3.0000     0.0000         3.0000       -3.9896         -3.1596  0.0003      0.0020           0.0273
+5   reasoning     t0.7     -2.0152    2.4480    -6.0000     0.7500         6.0000       -2.8946         -1.0511  0.0212      0.0215           0.1289
+6   reasoning     t1.0     -5.9167    4.7919   -14.3333    -0.5000        14.3333       -8.5590         -6.0888  0.0022      0.0010           0.0195
+7   reasoning  topp0.9     -2.9470    2.7812    -8.1667     0.5000         8.1667       -4.1174         -3.0960  0.0056      0.0029           0.0352
+8   reasoning   topk40     -5.7121    4.6811   -13.8333    -0.0833        13.8333       -8.2916         -6.2951  0.0023      0.0010           0.0195
+9   reasoning  minp0.1     -2.5303    3.0054    -8.0833     0.6667         8.0833       -3.7310         -2.2704  0.0190      0.0137           0.0957
+10       code     t0.7     -2.3466    3.2841    -7.9268     1.2195         7.9268       -5.2262         -0.8264  0.0393      0.1064           0.5322
+11       code     t1.0     -6.6519    5.7121   -15.0407     0.6098        15.0407      -13.1988         -9.6419  0.0031      0.0029           0.0352
+12       code  topp0.9     -2.9749    2.6660    -7.9268     1.2195         7.9268       -5.6934         -4.4077  0.0041      0.0059           0.0527
+13       code   topk40     -6.8921    5.6528   -15.2439     0.2033        15.2439      -13.5520         -7.9890  0.0023      0.0020           0.0273
+14       code  minp0.1     -2.5499    2.5651    -6.5041     0.8130         6.5041       -5.1106         -2.7548  0.0081      0.0098           0.0781
+15   creative     t0.7      0.0339    0.0790    -0.0900     0.1800         0.1800        0.4610          0.3559  0.1857      0.2402           0.7207
+16   creative     t1.0     -0.5857    0.7297    -2.1517    -0.0600         2.1517       -7.8595         -1.7195  0.0238      0.0010           0.0195
+17   creative  topp0.9      0.0038    0.1233    -0.2392     0.2283         0.2392        0.0294          0.0096  0.9209      1.0000           1.0000
+18   creative   topk40      0.0008    0.1089    -0.1775     0.1883         0.1883        0.0101         -0.2342  0.9820      0.8984           1.0000
+19   creative  minp0.1      0.0511    0.0928    -0.0717     0.2083         0.2083        0.7322          0.4782  0.0977      0.1543           0.6172
+         task strategy  tau_vs_greedy  ci_lo  ci_hi  frac_boot_gt_0_9  tau_seed_vs_seed
+0     factual   greedy          1.000    NaN    NaN               NaN               NaN
+1     factual     t0.7          0.927  0.891  1.000             0.970             0.957
+2     factual     t1.0          0.927  0.881  1.000             0.854             0.927
+3     factual  topp0.9          0.927  0.891  1.000             0.957             0.969
+4     factual   topk40          0.927  0.891  1.000             0.893             0.970
+5     factual  minp0.1          0.927  0.891  1.000             0.970             0.976
+6   reasoning   greedy          1.000    NaN    NaN               NaN               NaN
+7   reasoning     t0.7          0.891  0.709  0.964             0.202             0.890
+8   reasoning     t1.0          0.855  0.709  0.954             0.127             0.970
+9   reasoning  topp0.9          0.855  0.697  0.954             0.135             0.865
+10  reasoning   topk40          0.855  0.709  0.964             0.164             0.976
+11  reasoning  minp0.1          0.855  0.697  0.927             0.105             0.952
+12       code   greedy          1.000    NaN    NaN               NaN               NaN
+13       code     t0.7          1.000  0.796  1.000             0.609             0.976
+14       code     t1.0          0.927  0.759  0.964             0.364             0.933
+15       code  topp0.9          1.000  0.796  1.000             0.601             0.903
+16       code   topk40          0.927  0.771  0.991             0.414             0.933
+17       code  minp0.1          1.000  0.796  1.000             0.590             0.963
+18   creative   greedy          1.000    NaN    NaN               NaN               NaN
+19   creative     t0.7          0.964  0.927  1.000             0.982             1.000
+20   creative     t1.0          0.709  0.636  0.808             0.000             0.976
+21   creative  topp0.9          0.964  0.917  1.000             0.977             0.976
+22   creative   topk40          0.964  0.891  1.000             0.919             0.927
+23   creative  minp0.1          0.964  0.927  1.000             0.991             0.976
+           seed_std  seed_range  seed_cv_pct  item_flip  binom_se  std_over_binomSE
+task                                                                               
+code          2.131       4.080        4.456     26.729     3.485             0.607
+creative      0.047       0.090        0.664      0.468       NaN               NaN
+factual       1.144       2.177        2.892     14.427     2.343             0.492
+reasoning     1.157       2.209        1.687     24.241     1.978             0.584
+          creativity  coherence  fluency  engagement  judge_mean  distinct2  n_words  truncated  judge_parse_fail_pct
+strategy                                                                                                             
+greedy         7.238      8.364    9.468       8.128       8.300      0.963  148.241      0.016                   0.0
+t0.7           7.389      8.306    9.437       8.201       8.333      0.973  151.071      0.018                   0.0
+t1.0           7.285      7.368    8.560       7.642       7.714      0.982  155.827      0.045                   0.0
+topp0.9        7.469      8.203    9.342       8.199       8.303      0.977  154.464      0.028                   0.0
+topk40         7.532      8.146    9.309       8.215       8.300      0.979  156.292      0.027                   0.0
+minp0.1        7.385      8.347    9.459       8.212       8.351      0.973  153.295      0.020                   0.0
+strategy         greedy  minp0.1  t0.7   t1.0  topk40  topp0.9
+model                                                         
+falcon3-7b-awq      0.0     0.13 -0.24  -0.70   -0.23     0.20
+gemma2-9b-awq       0.0    -0.43 -0.55  -1.36   -0.57    -0.65
+llama3.1-8b-awq     0.0     0.48  0.65 -20.55   -0.34     0.01
+mistral-7b-awq      0.0    -0.12  0.16  -1.72    0.01    -0.31
+olmo3-7b-gptq       0.0    -0.78 -0.98  -8.15   -1.04    -0.92
+phi3-mini-gptq      0.0     1.19  1.13  -4.90    0.00     0.40
+qwen2.5-0.5b        0.0     1.94  0.36 -35.35   -2.92    -3.93
+qwen2.5-1.5b        0.0     3.03  1.52  -9.76    2.74     3.32
+qwen2.5-3b          0.0     2.27  2.27  -1.38    1.62     1.82
+qwen2.5-7b-awq      0.0     0.81  1.02  -1.70    1.56     0.95
+qwen3-4b-2507       0.0    -0.46 -0.27  -0.90   -0.71    -0.57

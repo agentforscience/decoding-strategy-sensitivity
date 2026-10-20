@@ -1,0 +1,71 @@
+\section{Results}
+\label{sec:results}
+
+We first report how scores change relative to greedy (\secref{sec:res-scores}). We then test each hypothesis: reasoning (\secref{sec:res-reasoning}), ranking stability (\secref{sec:res-tau}), seed variability (\secref{sec:res-seed}), and creative writing (\secref{sec:res-creative}).
+
+\input{tables/main_results}
+
+\subsection{Sampling lowers accuracy in every verifiable domain}
+\label{sec:res-scores}
+
+\Tabref{tab:main} and \figref{fig:delta} show that greedy decoding gives the highest mean score in all three verifiable domains. No sampler beats it on average. The order of strategies is nearly the same in every domain: greedy $>$ \{\tsev, \minp, \topp\} $>$ \{\topk, \tone\}. \topk is almost indistinguishable from untruncated \tone. Factual QA drops 3.8 vs.\ 4.3 points, reasoning 5.7 vs.\ 5.9, and code 6.9 vs.\ 6.7. A fixed cut-off of 40 tokens rarely removes anything from the peaked distributions of instruction-tuned models. The adaptive samplers, top-$p$ and min-$p$, do remove the long tail and lose only 1.6--3.0 points.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/delta_vs_greedy.png}
+    \caption{Change in score relative to greedy decoding for each domain and strategy. Bars show the mean over the 11 models, and dots show individual models. In the three verifiable domains, nearly every model loses accuracy under every sampler. Losses under \tone and \topk reach 8--15 points for some models. Creative quality is flat except at \tone.}
+    \label{fig:delta}
+\end{figure}
+
+\para{H1: factual QA is not decoding-invariant (refuted).} All five samplers significantly reduce \triviaqa accuracy (Holm-adjusted $p\leq0.035$). The mean drop ranges from 1.6 points (\tsev, \minp) to 4.3 points (\tone), or 4.0--11.0\% in relative terms. Individual models lose up to 8.1 points. The 2-point bound in H1 holds only for the two mildest samplers, and only on average: under \tsev one model still loses 4.0 points. The item-level pattern explains why. Pooled over models, items that greedy answers correctly remain correct in only 87\% of \tone samples, while items that greedy gets wrong become correct in only 5\% of samples. Sampling mostly turns confident correct answers into plausible wrong ones and rarely rescues a miss. Relative to its lower base accuracy, factual QA loses about as much as reasoning (11.0\% vs.\ 8.6\% at \tone).
+
+\subsection{The reasoning gap is real on average but model-dependent}
+\label{sec:res-reasoning}
+
+\input{tables/reasoning_gap}
+
+\para{H2 (mostly supported).} The mean \gsm gap between greedy and \tone is 5.9 points ($p_{\text{Holm}}=0.020$), inside the hypothesized 5--12-point band. \Tabref{tab:gap} shows that the per-model gap ranges from 0.5 to 14.3 points, and only 4 of 11 models fall inside the band. The gap shrinks as greedy accuracy rises. The three strongest reasoners (Qwen3-4B, Qwen2.5-7B, Gemma-2-9B, all above 87\% under greedy) lose less than 1 point. Small models lose 12--14 points. Falcon3-7B is an outlier: it is strong under greedy (87.0\%) but loses 8.5 points, and truncation hardly helps it. Pooled over models, \topp recovers 50\% of the \tone loss and \minp recovers 57\%. That meets the ``$>$50\%'' threshold only narrowly, so ``recovers most'' overstates it. Under \tsev and \minp, the reasoning loss is not significant after Holm correction ($p_{\text{Holm}}=0.13$ and $0.10$).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/per_model_by_strategy.png}
+    \caption{Per-model scores under each strategy. Most lines are nearly parallel, which is why rankings are stable. The visible V shapes at \tone and \topk come from weaker models (Qwen2.5-0.5B/1.5B, Phi-3-mini, Llama-3.1-8B). In the creative panel, Qwen2.5-0.5B and Llama-3.1-8B collapse only at untruncated \tone.}
+    \label{fig:permodel}
+\end{figure}
+
+\subsection{Model rankings are stable; reasoning is the least stable verifiable domain}
+\label{sec:res-tau}
+
+\input{tables/tau}
+
+\para{H4 (half supported).} \Tabref{tab:tau} and \figref{fig:tau} show that factual-QA rankings are stable: $\tau=0.93$ for every sampler (one swapped pair out of 55), and 85--97\% of bootstrap replicates exceed 0.9. As predicted, reasoning is the least stable verifiable domain, with $\tau$ between 0.85 and 0.89 and only 10--20\% of bootstrap replicates above 0.9. However, $\tau$ never comes close to the hypothesized $<0.7$. Point estimates are at least 0.85, and even the lower CI bounds are 0.70--0.71. The instability comes from tight clustering rather than from the domain itself. Under greedy, the top five \gsm models are within 3.75 points of each other (Qwen3-4B 90.8, Qwen2.5-7B 89.2, Olmo-3 88.0, Gemma-2 87.8, Falcon3 87.0), so small sampling effects swap neighbors. Code rankings are the most stable ($\tau=1.00$ under \tsev, \topp, and \minp), although their CIs are wide because \humaneval is small.
+
+The only domain--strategy pair near $\tau=0.7$ is \emph{creative writing at \tone} ($\tau=0.71$ [0.64, 0.81]). Untruncated sampling makes some small models degenerate: Qwen2.5-0.5B loses 35\% of its judge score and Llama-3.1-8B loses 21\%, while Gemma-2-9B, Mistral-7B, Falcon3-7B, Qwen2.5-7B, and Qwen3-4B lose under 2\%. Stable rankings do not imply stable scores, however. Individual models move by up to 8.1 points on factual QA, 14.3 on reasoning, and 15.2 on code (\figref{fig:delta}), so comparing two models under different decoders can reverse the conclusion.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/kendall_tau.png}
+    \caption{\ktau between each strategy's model ranking and the greedy ranking, with 95\% item-bootstrap CIs. The dashed line marks 0.9 and the dotted line 0.7. Factual and code rankings stay near or above 0.9. Reasoning sits slightly lower (0.85--0.89) but well above 0.7. Only creative writing at \tone approaches 0.7.}
+    \label{fig:tau}
+\end{figure}
+
+\subsection{Code is the most seed-sensitive domain}
+\label{sec:res-seed}
+
+\input{tables/seed}
+
+\para{H5 (supported, with a caveat).} \Tabref{tab:seed} and \figref{fig:seed} show that code has the largest run-level seed SD (2.13 points, vs.\ 1.16 for reasoning and 1.14 for factual) and the highest item flip rate (26.7\%). More than a quarter of \humaneval problems change between pass and fail across seeds for the same model and sampler. These differences are significant (paired Wilcoxon over 55 cells, $p<10^{-5}$; $p=0.02$ for the flip rate of code vs.\ reasoning). Part of the raw gap comes from benchmark size. When \gsm and \triviaqa are subsampled to 164 items, their seed SD rises to 1.85 and 1.59, so code's lead over reasoning falls from 0.97 to 0.28 points. Normalized by the binomial standard error, code is still the highest (0.61 vs.\ 0.58 and 0.49). Creative judge scores average over 100 stories and many tokens, and they barely vary across seeds (SD 0.05 judge points).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/seed_variability.png}
+    \caption{Seed variability by domain. \figleft Standard deviation of run-level scores over 3 seeds for each model$\times$strategy cell. \figright Share of items whose outcome differs across seeds. Code has the highest median and the widest spread on both measures. Reasoning flip rates vary widely across models.}
+    \label{fig:seed}
+\end{figure}
+
+\subsection{Sampling does not improve judged creative quality}
+\label{sec:res-creative}
+
+\input{tables/creative}
+
+\para{H3 (refuted).} Relative to greedy, the overall judge score changes by $+0.5\%$ (\tsev), $+0.0\%$ (\topp), $+0.0\%$ (\topk), and $+0.7\%$ (\minp), none of them significant. It falls by $7.9\%$ under \tone ($p_{\text{Holm}}=0.020$). None of these comes close to the hypothesized $+10$--$15\%$. \Tabref{tab:creative} shows why. Sampling does raise the judge's \emph{creativity} sub-score (by 2--4\%) and distinct-2 (from 0.963 to 0.973--0.982), but it lowers coherence and fluency by about the same amount. Greedy stories from instruction-tuned models are already fluent and coherent. Untruncated sampling visibly breaks small models: Qwen2.5-0.5B drifts into word salad (``Dory's repertoire of species expert claim proved invaluable\ldots''), and 27\% of its \tone stories hit the length cap.

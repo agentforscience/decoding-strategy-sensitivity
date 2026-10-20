@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "stages": {
+    "resource_finder": {
+      "success": true,
+      "skipped": true
+    },
+    "experiment_runner": {
+      "success": true,
+      "return_code": 0,
+      "elapsed_time": 18233.46576166153,
+      "log_file": "/data/summereunann/neurico-workspaces/decoding_strategy_sensitivity__20261019_124132_af01dc56/logs/execution_claude.log",
+      "transcript_file": "/data/summereunann/neurico-workspaces/decoding_strategy_sensitivity__20261019_124132_af01dc56/logs/execution_claude_transcript.jsonl",
+      "background_processes_terminated": false
+    }
+  },
+  "work_dir": "/data/summereunann/neurico-workspaces/decoding_strategy_sensitivity__20261019_124132_af01dc56"
+}

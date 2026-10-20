@@ -1,0 +1,17 @@
+\begin{table}[t]
+    \centering
+    \small
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lllcc@{}}
+        \toprule
+        \textbf{Domain} & \textbf{Data} & \textbf{Metric} & \textbf{$n$ items} & \textbf{Max new tokens} \\
+        \midrule
+        Factual QA & \triviaqa \texttt{rc.nocontext} val. & Normalized alias match (EM or contains) & 400 & 48 \\
+        Reasoning & \gsm test, zero-shot CoT & Final-number accuracy & 400 & 640 \\
+        Code & \humaneval (all) & pass@1, executed unit tests & 164 & 640 \\
+        Creative & \rocstories first sentences & LLM-judge mean of 4 criteria (1--10) & 100 & 400 \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Task domains, data, and metrics. Each item is generated under 16 runs (greedy plus 5 sampled strategies $\times$ 3 seeds) for each of the 11 models.}
+    \label{tab:tasks}
+\end{table}
